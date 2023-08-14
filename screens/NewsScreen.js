@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   carousel: {
     flex: 1,
     backgroundColor: "black",
+    transform: [{ scaleY: -1 }],
   },
 });
 export default NewsScreen;
