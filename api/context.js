@@ -16,7 +16,9 @@ const NewsContextProvider = ({ children }) => {
     fetchNews();
   }, [category]);
   return (
-    <NewsContext.Provider value={{ news, index, setIndex, fetchNews }}>
+    <NewsContext.Provider
+      value={{ news, index, setIndex, fetchNews, setCategory }}
+    >
       {children}
     </NewsContext.Provider>
   );
