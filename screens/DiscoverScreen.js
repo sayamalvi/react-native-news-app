@@ -7,12 +7,12 @@ import {
   Dimensions,
 } from "react-native";
 import React, { useContext } from "react";
-import NewsContext from "../api/context";
+import { NewsContext } from "../api/context";
 import { categories, sources } from "../api/api";
 import Carousel from "react-native-snap-carousel";
 const DiscoverScreen = () => {
   const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { setCategory } = useContext(NewsContext);
   return (
     <View style={styles.discover}>
       {/* search */}
@@ -22,8 +22,11 @@ const DiscoverScreen = () => {
       <Carousel
         layout={"default"}
         data={categories}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity style={styles.category}>
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.category}
+            onPress={() => setCategory(item.name)}
+          >
             <Image source={{ uri: item.pic }} style={styles.categoryImage} />
             <Text style={{ ...styles.name, color: "white" }}>{item.name}</Text>
           </TouchableOpacity>
