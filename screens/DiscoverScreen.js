@@ -10,13 +10,14 @@ import React, { useContext } from "react";
 import { NewsContext } from "../api/context";
 import { categories, sources } from "../api/api";
 import Carousel from "react-native-snap-carousel";
+import Search from "../components/Search";
 const DiscoverScreen = () => {
   const windowWidth = Dimensions.get("window").width;
-  const { setCategory } = useContext(NewsContext);
+  const { setCategory, setSource } = useContext(NewsContext);
   return (
     <View style={styles.discover}>
       {/* search */}
-
+      <Search />
       {/* categories */}
       <Text style={{ ...styles.subtitle, color: "white" }}>Categories</Text>
       <Carousel
@@ -35,6 +36,18 @@ const DiscoverScreen = () => {
         itemWidth={Math.round(windowWidth / 3.5)}
       />
       {/* sources */}
+      <Text style={{ ...styles.subtitle, color: "white" }}>Sources</Text>
+      <View style={styles.sources}>
+        {sources.map((s) => (
+          <TouchableOpacity
+            onPress={() => setSource(s.id)}
+            key={s.id}
+            style={styles.sourceContainer}
+          >
+            <Image source={{ uri: s.pic }} style={styles.sourceImage} />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };
@@ -67,6 +80,24 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: "center",
     justifyContent: "space-evenly",
+  },
+  sourceImage: {
+    height: "100%",
+    borderRadius: 10,
+    resizeMode: "cover",
+  },
+  sources: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    paddingVertical: 15,
+  },
+  sourceContainer: {
+    height: 150,
+    width: "40%",
+    borderRadius: 10,
+    margin: 15,
+    backgroundColor: "#cc313d",
   },
 });
 export default DiscoverScreen;
